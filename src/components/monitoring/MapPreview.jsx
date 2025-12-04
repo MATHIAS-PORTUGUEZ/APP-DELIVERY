@@ -5,10 +5,11 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { Order } from "../home/oders/Order";
 import { Map } from "../shared/Map";
 
-mapboxgl.accessToken = "CHANGEME";
+// Read token from environment (Vite uses import.meta.env)
+mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN || "CHANGEME";
 
 export const MapMonitoring = ({ id }) => {
-  const [isLoagin, setIsLoagin] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [count, setCount] = useState(5);
 
   const [order, setOrder] = useState({
@@ -39,7 +40,7 @@ export const MapMonitoring = ({ id }) => {
       }
     };
     fetchData();
-  }, {});
+  }, [id]);
 
   const navigate = useNavigate();
 
@@ -47,27 +48,29 @@ export const MapMonitoring = ({ id }) => {
     navigate("/home");
   };
 
+  const intervalRef = useRef(null);
+
   const handlerAccept = () => {
-    setIsLoagin(true);
+    setIsLoading(true);
     setCount(5);
-    const countInterval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setCount((prevCount) => {
         if (prevCount <= 1) {
-          clearInterval(countInterval);
-          setIsLoagin(false);
+          clearInterval(intervalRef.current);
+          setIsLoading(false);
           navigate("/confirm-order");
           return 0;
         }
         return prevCount - 1;
       });
     }, 1000);
-
-    return () => {
-      setCount(5);
-      setIsLoagin(false);
-      clearInterval(countInterval);
-    };
   };
+
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, []);
   return (
     <section className="card monitoring">
       <Order
@@ -76,11 +79,12 @@ export const MapMonitoring = ({ id }) => {
         amount={order.amount}
         client={order.client}
         km={order.km}
+        payment={order.payment}
       />
 
       <div
         className="loagin-accept"
-        style={{ display: isLoagin ? "flex" : "none" }}
+        style={{ display: isLoading ? "flex" : "none" }}
       >
         <img src="/cargando.svg" alt="" />
         <span>Aceptando carrera...!</span>
@@ -88,7 +92,7 @@ export const MapMonitoring = ({ id }) => {
       </div>
 
       {order.id ? (
-        <div className="map" style={{ display: isLoagin ? "none" : "block" }}>
+        <div className="map" style={{ display: isLoading ? "none" : "block" }}>
           <Map mOrigin={order.origin} mDestination={order.destination} />
         </div>
       ) : (
@@ -98,14 +102,14 @@ export const MapMonitoring = ({ id }) => {
       <div className="btns-monitoring">
         <button
           className="btn-cancel"
-          style={isLoagin ? { width: "100%" } : {}}
+          style={isLoading ? { width: "100%" } : {}}
           onClick={handlerCancel}
         >
           Cancelar
         </button>
         <button
           className="btn-accept"
-          style={isLoagin ? { display: "none" } : {}}
+          style={isLoading ? { display: "none" } : {}}
           onClick={handlerAccept}
         >
           Aceptar

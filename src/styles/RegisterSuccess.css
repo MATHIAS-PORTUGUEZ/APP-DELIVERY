@@ -1,0 +1,74 @@
+.register-page.success-page {
+    background-color: var(--chaskys-green);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* El padding-bottom se maneja con el padding de .bottom-card */
+    padding-bottom: 0;
+}
+
+/* --- Estilos para LogoChaskys (Asumidos) --- */
+/*
+Si no tienes estilos para LogoChaskys, aquí irían:
+.logo-chaskys { padding: 40px 20px 20px; text-align: center; }
+.logo-text { font-size: 3em; font-weight: bold; color: var(--chaskys-gold); }
+.description { font-size: 1.2em; color: var(--white); margin-top: -5px; }
+*/
+
+
+/* --- Tarjeta Central de Éxito --- */
+
+.success-card {
+    width: 65%;
+    max-width: 339px;
+    height: 200px;
+    background-color: #ffffffc9;
+    border-radius: 20px;
+    /* Sombra para darle profundidad */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    padding: 40px 20px;
+    text-align: center;
+    /* Centrado en la pantalla verde */
+    margin: 50px auto 50px;
+}
+
+/* --- Ícono de Check --- */
+
+.icon-container {
+    /* Contenedor para dar el tamaño al SVG */
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+}
+
+.icon-check-image {
+    /* El tag <img> usando el SVG */
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.success-message {
+    font-size: 1.5em;
+    font-weight: 500;
+    color: #333;
+}
+
+
+/* --- Tarjeta Inferior y Botón "Siguiente" --- */
+
+.bottom-card.success-bottom {
+    width: 90%;
+    background-color: var(--white);
+    border-radius: 60px 60px 0px 0px;
+    padding: 30px 20px;
+    margin-top: auto;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.success-bottom .next:hover {
+    background: var(--button-hover);
+}

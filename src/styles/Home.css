@@ -116,9 +116,86 @@
   color: #5B5B5B
 }
 
-.record-view-orders{
+.record-view-orders {
   display: flex;
   justify-content: center;
   gap: 0.3em;
   margin-bottom: 10px;
+}
+
+/* Order card actions */
+.card-order-actions {
+  margin-top: 10px;
+}
+
+/* Ratings page styles */
+.ratings-card {
+  padding: 20px;
+}
+
+.rating-card {
+  background: #dff4ef;
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
+.rating-author {
+  font-weight: 600;
+}
+
+.rating-stars {
+  color: #f5c542;
+  margin-left: 8px;
+}
+
+.rating-star {
+  font-size: 20px;
+  margin-right: 4px;
+}
+
+.rating-text {
+  margin-top: 8px;
+}
+
+/* payment badge */
+.payment-badge {
+  background: #ffea77;
+  /* pale yellow */
+  color: #062c15;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 14px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+  display: inline-block;
+  font-size: 14px;
+}
+
+/* Notes page */
+.notes-card {
+  padding: 20px;
+}
+
+.note-item {
+  background: #bfe9e3;
+  /* teal */
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.note-author {
+  font-weight: 700;
+}
+
+.note-text {
+  background: #e9ecec;
+  padding: 8px 10px;
+  border-radius: 10px;
+  margin-top: 8px;
+}
+
+.big-star {
+  font-size: 36px;
+  color: #ffd542;
+  margin-right: 6px;
 }

@@ -6,7 +6,7 @@ import '../styles/ConfirmOrder.css'
 export const ConfirmOrder = () => {
 
     const [firstView, setFirstView] = useState(true)
-    const [count, setCount] = useState(2)
+    const [_count, setCount] = useState(2)
 
     useEffect(() => {
         const countInterval = setInterval(() => {

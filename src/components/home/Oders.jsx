@@ -25,7 +25,7 @@ export const OdersHome = () => {
       <div className="order-home-title">
         <span>PEDIDOS DISPONIBLES</span>
       </div>
-      {orders.map(({ id, client, amount, address, km }) => (
+      {orders.map(({ id, client, amount, address, km, payment }) => (
         <Order
           key={id}
           id={id}
@@ -33,6 +33,7 @@ export const OdersHome = () => {
           amount={amount}
           address={address}
           km={km}
+          payment={payment}
         />
       ))}
     </section>

@@ -1,22 +1,27 @@
-import { Order } from "../home/oders/Order";
-import { useNavigate } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-mapboxgl.accessToken = "CHANGEME";
+// Mapbox token from Vite environment variable
+mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN || "CHANGEME";
 
-export const Map = ({mOrigin, mDestination}) => {
+export const Map = ({ mOrigin, mDestination }) => {
     const mapContainer = useRef(null);
     const map = useRef(null);
     const currentLocationMarker = useRef(null);
-    const [currentLocation, setCurrentLocation] = useState(null);
+    const [_currentLocation, setCurrentLocation] = useState(null);
 
     useEffect(() => {
         if (map.current) return;
 
-        const origin = mOrigin;
-        const destination = mDestination;
+        const origin = mOrigin ?? [-77.029842, -12.04574];
+        const destination = mDestination ?? [-77.029842, -12.04574];
+
+        // Make sure token is valid before creating the map
+        if (!mapboxgl.accessToken || mapboxgl.accessToken === 'CHANGEME') {
+            console.warn('Mapbox token not configured. Map will not be created.');
+            return;
+        }
 
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
@@ -35,7 +40,7 @@ export const Map = ({mOrigin, mDestination}) => {
                 .setLngLat(destination)
                 .setPopup(new mapboxgl.Popup().setHTML('<h3>Fin del Pedido</h3>'))
                 .addTo(map.current);
-            
+
             getRoute(origin, destination, 'route-blue', '#3b82f6');
 
             if (navigator.geolocation) {
@@ -61,7 +66,7 @@ export const Map = ({mOrigin, mDestination}) => {
         return () => {
             map.current.remove();
         };
-    }, []);
+    }, [mOrigin, mDestination]);
 
     useEffect(() => {
         if (!map.current) return;
@@ -95,7 +100,7 @@ export const Map = ({mOrigin, mDestination}) => {
                 navigator.geolocation.clearWatch(watchId);
             }
         };
-    }, []);
+    }, [mOrigin, mDestination]);
 
     const getRoute = async (start, end, routeId, color) => {
         const query = await fetch(

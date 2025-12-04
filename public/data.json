@@ -3,27 +3,87 @@
   "data": [
     {
       "id": 1,
-      "origin": [-77.030867, -12.054139],
-      "destination": [-77.036712, -12.042828],
+      "origin": [
+        -77.030867,
+        -12.054139
+      ],
+      "destination": [
+        -77.036712,
+        -12.042828
+      ],
       "client": "Mario Rivera",
       "amount": "15.60",
       "address": {
         "origin": "Av. Arequipa 1234, Lima",
         "destination": "Calle Los Pinos 567, Miraflores"
       },
-      "km": 5.2
+      "km": 5.2,
+      "payment": "Efectivo",
+      "notes": [
+        {
+          "id": 1,
+          "author": "Mario Rivera",
+          "text": "El cliente solicita tener cuidado con la entrega."
+        },
+        {
+          "id": 2,
+          "author": "Mario Rivera",
+          "text": "Llamar al llegar a la puerta."
+        },
+        {
+          "id": 3,
+          "author": "Mario Rivera",
+          "text": "Por favor dejar en la recepción si no contesta."
+        }
+      ],
+      "ratings": [
+        {
+          "id": 1,
+          "author": "Mario Rivera",
+          "stars": 4,
+          "text": "Es un servicio rápido y eficiente."
+        },
+        {
+          "id": 2,
+          "author": "Mario Rivera",
+          "stars": 4,
+          "text": "Buen servicio y puntual."
+        }
+      ]
     },
     {
       "id": 2,
-      "origin": [-77.025459, -12.041350],
-      "destination": [-77.031236,-12.028769],
+      "origin": [
+        -77.025459,
+        -12.041350
+      ],
+      "destination": [
+        -77.031236,
+        -12.028769
+      ],
       "client": "Luisa Gómez",
       "amount": "10.20",
       "address": {
         "origin": "Av. Trujillo 4321, Lima",
         "destination": "Calle Las Flores 890, San Isidro"
       },
-      "km": 5.2
+      "km": 5.2,
+      "payment": "Tarjeta",
+      "notes": [
+        {
+          "id": 4,
+          "author": "Luisa Gómez",
+          "text": "Dejar con portero si no contesto."
+        }
+      ],
+      "ratings": [
+        {
+          "id": 3,
+          "author": "Luisa Gómez",
+          "stars": 5,
+          "text": "Muy buen servicio."
+        }
+      ]
     }
   ]
 }

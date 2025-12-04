@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+// useNavigate not used in this component currently
 
 import { HeaderHome } from "../components/home/Header";
 import { ProfitHome } from "../components/home/Profit";
@@ -11,13 +11,14 @@ import "../styles/Home.css";
 import { useState } from "react";
 
 export const Home = () => {
-  const [totalRecords, setTotalRecords] = useState(253);
-  const [totalRecordsToday, setTotalRecordsToday] = useState(32);
-  const [totalOderAvailable, setTotalOderAvailable] = useState(5);
+  const [totalRecords, _setTotalRecords] = useState(253);
+  const [totalRecordsToday, _setTotalRecordsToday] = useState(32);
+  const [totalOderAvailable, _setTotalOderAvailable] = useState(5);
   const [isVisibleHistorial, setIsVisibleHistorial] = useState(false);
 
 
-   const navigate = useNavigate();
+  // navigate is not used in Home currently; keep commented until needed
+  // const navigate = useNavigate();
 
   const handlerViewHistorial = () => {
     setIsVisibleHistorial(true);
@@ -30,7 +31,7 @@ export const Home = () => {
 
   return (
     <div>
-      <HeaderHome/>
+      <HeaderHome />
       <ProfitHome />
 
       {isVisibleHistorial ? (
