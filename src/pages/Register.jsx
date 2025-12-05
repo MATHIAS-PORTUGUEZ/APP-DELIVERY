@@ -91,16 +91,6 @@ export const Register = () => {
           </div>
 
           <div className="accion-register">
-            <button
-              type="button"
-              className="btn btn-login"
-              onClick={handleSave}
-              disabled={!isFormValid}
-              aria-disabled={!isFormValid}
-              style={{ opacity: isFormValid ? 1 : 0.6, pointerEvents: isFormValid ? "auto" : "none" }}
-            >
-              Guardar Datos
-            </button>
 
             <button
               type="submit"

@@ -1,8 +1,10 @@
 import { HaderProfile } from '../components/profile/Hader'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import "../styles/Profile.css";
 
 export const Profile = () => {
+    const navigate = useNavigate();
     const [profile, setProfile] = useState({ name: '', phone: '', user: '', password: '', photo: '' });
 
     useEffect(() => {
@@ -17,6 +19,7 @@ export const Profile = () => {
     const handleSave = () => {
         localStorage.setItem('profile', JSON.stringify(profile));
         alert('Perfil guardado');
+        navigate('/home');
     }
 
     const handlePhoto = (e) => {
