@@ -3,7 +3,8 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 // Mapbox token from Vite environment variable
-mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN || "CHANGEME";
+// Prefer VITE_CHAMGENE (professor requested name), fallback to VITE_MAPBOX_TOKEN
+mapboxgl.accessToken = import.meta.env.VITE_CHAMGENE || import.meta.env.VITE_MAPBOX_TOKEN || "CHANGEME";
 
 export const Map = ({ mOrigin, mDestination }) => {
     const mapContainer = useRef(null);
@@ -19,7 +20,7 @@ export const Map = ({ mOrigin, mDestination }) => {
 
         // Make sure token is valid before creating the map
         if (!mapboxgl.accessToken || mapboxgl.accessToken === 'CHANGEME') {
-            console.warn('Mapbox token not configured. Map will not be created.');
+            console.warn('Mapbox token not configured (set VITE_CHAMGENE on Vercel). Map will not be created.');
             return;
         }
 

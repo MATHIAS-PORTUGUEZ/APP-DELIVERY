@@ -6,7 +6,8 @@ import { Order } from "../home/oders/Order";
 import { Map } from "../shared/Map";
 
 // Read token from environment (Vite uses import.meta.env)
-mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN || "CHANGEME";
+// Prefer VITE_CHAMGENE (professor requested name), fallback to VITE_MAPBOX_TOKEN
+mapboxgl.accessToken = import.meta.env.VITE_CHAMGENE || import.meta.env.VITE_MAPBOX_TOKEN || "CHANGEME";
 
 export const MapMonitoring = ({ id }) => {
   const [isLoading, setIsLoading] = useState(false);
