@@ -5,10 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 export const Login = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+  const [hasStoredProfile, setHasStoredProfile] = useState(false);
 
   const navigate = useNavigate();
 
-  // Cargar usuario y contraseña guardados al montar el componente
+  // Cargar usuario y contraseña guardados al montar el componente (pero NO auto-login)
   useEffect(() => {
     try {
       const stored = localStorage.getItem('profile');
@@ -17,20 +18,15 @@ export const Login = () => {
         if (profile.user && profile.password) {
           setUser(profile.user);
           setPassword(profile.password);
-          // Auto-login después de cargar los datos
-          setTimeout(() => {
-            handleAutoLogin(profile.user, profile.password);
-          }, 500);
+          setHasStoredProfile(true);
         }
       }
     } catch (err) { }
   }, []);
 
-  const handleAutoLogin = (username, pass) => {
-    // Validar con la cuenta guardada
-    if (username && pass) {
-      navigate("/home");
-    }
+  const handleLoginWithStored = () => {
+    // iniciar sesión usando las credenciales cargadas
+    navigate('/home');
   };
 
   const handleSubmit = (e) => {
