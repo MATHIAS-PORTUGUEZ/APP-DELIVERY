@@ -100,7 +100,9 @@
 .profile-actions {
   display: flex;
   justify-content: center;
+  gap: 12px;
   margin-top: 18px;
+  flex-wrap: wrap;
 }
 
 .btn-accept {
@@ -115,6 +117,48 @@
   cursor: pointer;
   width: 100%;
   max-width: 360px;
+}
+
+.btn-logout {
+  background: linear-gradient(#ef929b, #e67080);
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-family: "Itim", cursive;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  width: 100%;
+  max-width: 360px;
+}
+
+.profile-success-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 14px;
+  padding: 12px;
+  background: #d4edda;
+  border: 2px solid #28a745;
+  border-radius: 12px;
+  color: #155724;
+  font-size: 16px;
+  font-family: "Itim", cursive;
+  font-weight: bold;
+  animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive: stack label above input on narrow screens */

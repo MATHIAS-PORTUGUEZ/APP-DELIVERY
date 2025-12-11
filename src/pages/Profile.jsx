@@ -6,6 +6,7 @@ import "../styles/Profile.css";
 export const Profile = () => {
     const navigate = useNavigate();
     const [profile, setProfile] = useState({ name: '', phone: '', user: '', password: '', photo: '' });
+    const [savedSuccess, setSavedSuccess] = useState(false);
 
     useEffect(() => {
         try {
@@ -18,8 +19,15 @@ export const Profile = () => {
 
     const handleSave = () => {
         localStorage.setItem('profile', JSON.stringify(profile));
-        alert('Perfil guardado');
-        navigate('/home');
+        setSavedSuccess(true);
+        setTimeout(() => {
+            setSavedSuccess(false);
+            navigate('/home');
+        }, 2000);
+    }
+
+    const handleLogout = () => {
+        navigate('/login');
     }
 
     const handlePhoto = (e) => {
@@ -58,7 +66,13 @@ export const Profile = () => {
                 </div>
                 <div className="profile-actions">
                     <button className="btn btn-accept" onClick={handleSave}>Guardar</button>
+                    <button className="btn btn-logout" onClick={handleLogout}>Cerrar Sesión</button>
                 </div>
+                {savedSuccess && (
+                    <div className="profile-success-message">
+                        ✓ Guardado exitosamente
+                    </div>
+                )}
             </section>
         </div>
     )
