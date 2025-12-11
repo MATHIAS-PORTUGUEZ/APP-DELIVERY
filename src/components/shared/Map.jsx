@@ -69,6 +69,19 @@ export const Map = ({ mOrigin, mDestination }) => {
         };
     }, [mOrigin, mDestination]);
 
+    // Recompute routes if origin/destination props change
+    useEffect(() => {
+        if (!map.current) return;
+        const origin = mOrigin ?? [-77.029842, -12.04574];
+        const destination = mDestination ?? [-77.029842, -12.04574];
+        // update main route
+        getRoute(origin, destination, 'route-blue', '#3b82f6');
+        // if we have current location, update user->origin route
+        if (_currentLocation) {
+            getRoute(_currentLocation, origin, 'route-orange', '#f97316');
+        }
+    }, [mOrigin, mDestination, _currentLocation]);
+
     useEffect(() => {
         if (!map.current) return;
 

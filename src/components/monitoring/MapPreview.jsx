@@ -25,6 +25,10 @@ export const MapMonitoring = ({ id }) => {
     km: "",
   });
 
+  const [originAddress, setOriginAddress] = useState("Santa Anita, Peru");
+  const [destinationAddress, setDestinationAddress] = useState("Mal de Sur, Peru");
+  const [geocodingError, setGeocodingError] = useState("");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -41,6 +45,36 @@ export const MapMonitoring = ({ id }) => {
     };
     fetchData();
   }, [id]);
+
+  // Geocode helper using Mapbox Geocoding API
+  const geocode = async (text) => {
+    if (!mapboxgl.accessToken || mapboxgl.accessToken === "CHANGEME") {
+      throw new Error("Mapbox token not configured");
+    }
+    const q = encodeURIComponent(text);
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${q}.json?access_token=${mapboxgl.accessToken}&limit=1`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (!data.features || data.features.length === 0) return null;
+    const [lng, lat] = data.features[0].center;
+    return [lng, lat];
+  };
+
+  const handleShowRoute = async () => {
+    setGeocodingError("");
+    try {
+      const o = await geocode(originAddress);
+      const d = await geocode(destinationAddress);
+      if (!o || !d) {
+        setGeocodingError("No se pudieron geocodificar una o ambas direcciones.");
+        return;
+      }
+      setOrder((prev) => ({ ...prev, origin: o, destination: d }));
+    } catch (err) {
+      console.error(err);
+      setGeocodingError(err.message || "Error al geocodificar");
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -91,13 +125,39 @@ export const MapMonitoring = ({ id }) => {
         <span>{count}s</span>
       </div>
 
-      {order.id ? (
-        <div className="map" style={{ display: isLoading ? "none" : "block" }}>
-          <Map mOrigin={order.origin} mDestination={order.destination} />
+      {/* Address inputs to geocode and show route */}
+      <div className="map-controls" style={{ margin: '8px 0' }}>
+        <input
+          type="text"
+          value={originAddress}
+          onChange={(e) => setOriginAddress(e.target.value)}
+          placeholder="Origin address (ej: Santa Anita, Peru)"
+          style={{ width: '48%', marginRight: '4%', padding: '8px' }}
+        />
+        <input
+          type="text"
+          value={destinationAddress}
+          onChange={(e) => setDestinationAddress(e.target.value)}
+          placeholder="Destination address (ej: Mal de Sur, Peru)"
+          style={{ width: '48%', padding: '8px' }}
+        />
+        <div style={{ marginTop: 8 }}>
+          <button onClick={handleShowRoute} className="btn-accept">Mostrar ruta</button>
+          {geocodingError ? (
+            <div style={{ color: 'red', marginTop: 6 }}>{geocodingError}</div>
+          ) : null}
         </div>
-      ) : (
-        <div></div>
-      )}
+
+        {order.id ? (
+          <div className="map" style={{ display: isLoading ? "none" : "block" }}>
+            <Map mOrigin={order.origin} mDestination={order.destination} />
+          </div>
+        ) : (
+          <div className="map" style={{ display: isLoading ? "none" : "block" }}>
+            <Map mOrigin={order.origin} mDestination={order.destination} />
+          </div>
+        )}
+      </div>
 
       <div className="btns-monitoring">
         <button
