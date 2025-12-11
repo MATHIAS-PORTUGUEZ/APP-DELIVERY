@@ -22,7 +22,7 @@ export const Profile = () => {
         setSavedSuccess(true);
         setTimeout(() => {
             setSavedSuccess(false);
-            navigate('/home');
+            navigate('/login');
         }, 2000);
     }
 
